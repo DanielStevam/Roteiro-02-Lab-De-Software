@@ -7,4 +7,4 @@ CREATE TABLE task (
 INSERT INTO task (description) VALUES
  ('Primeira tarefa'),
  ('Segunda tarefa'),
- ('Terceira tarefa');
+ ('Terceira tarefa')
