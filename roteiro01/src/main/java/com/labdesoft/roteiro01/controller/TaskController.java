@@ -40,7 +40,7 @@ public class TaskController {
         }
     }
 
-    @Operation(summary = "Cria uma nova tarefa")
+    @Operation(summary = "Cria uma nova tarefa na lista de tarefas")
     @PostMapping(path = "/")
     public ResponseEntity<Object> create(Task task) {
         try {
@@ -53,7 +53,7 @@ public class TaskController {
         }
     }
 
-    @Operation(summary = "Atualiza uma tarefa já existente")
+    @Operation(summary = "Atualiza uma tarefa que já existente na lista de tarefas")
     @PutMapping(path = "/")
     private ResponseEntity<Object> update(Task task) {
         try {
@@ -66,7 +66,7 @@ public class TaskController {
         }
     }
 
-    @Operation(summary = "Delete uma tarefa já existente")
+    @Operation(summary = "Delete uma tarefa já existente na lista de tarefas ")
     @DeleteMapping(path = "/")
     private ResponseEntity<Object> delete(Long id) {
         try {
@@ -77,7 +77,7 @@ public class TaskController {
         }
     }
 
-    @Operation(summary = "finaliza uma tarefa ou retira o status de finalizada")
+    @Operation(summary = "finaliza uma tarefa ou retira o status de finalizada de uma tarefa")
     @PutMapping(path = "/done")
     private ResponseEntity<Object> done(Long id) {
         try {
