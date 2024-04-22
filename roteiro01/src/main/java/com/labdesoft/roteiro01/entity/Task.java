@@ -4,8 +4,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Entity
