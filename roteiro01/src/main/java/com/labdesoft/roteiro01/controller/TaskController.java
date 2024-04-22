@@ -1,92 +1,58 @@
 package com.labdesoft.roteiro01.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.labdesoft.roteiro01.service.TaskService;
-import com.labdesoft.roteiro01.entity.Task;
-
-import io.swagger.v3.oas.annotations.Operation;
-
 import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.labdesoft.roteiro01.entity.*;
+import com.labdesoft.roteiro01.service.TaskService;
 
-@CrossOrigin("*")
-@RequestMapping("/task")
 @RestController
+@RequestMapping("/tasks")
 public class TaskController {
 
     @Autowired
-    TaskService taskService;
+    private TaskService taskService;
 
-    @GetMapping("/")
-    @Operation(summary = "Lista todas as tarefas da lista")
-    public ResponseEntity<List<Task>> listAll() {
-        try {
-            List<Task> allTasks = taskService.findAllTask();
-            if (allTasks.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<List<Task>>(allTasks, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    @GetMapping
+    public ResponseEntity<List<Task>> getAllTasks() {
+        List<Task> tasks = taskService.findAllTasks();
+        return ResponseEntity.ok(tasks);
+    }
+
+    @PostMapping
+    public ResponseEntity<Task> createTask(@RequestBody Task newTask) {
+        Task createdTask = taskService.createTask(newTask);
+        return ResponseEntity.ok(createdTask);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
+        task.setId(id);
+        Task updatedTask = taskService.updateTask(task);
+        return ResponseEntity.ok(updatedTask);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
+        Optional<Task> task = taskService.findTaskById(id);
+        if (task.isPresent()) {
+            return ResponseEntity.ok(task.get());
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
-    @Operation(summary = "Cria uma nova tarefa na lista de tarefas")
-    @PostMapping(path = "/")
-    public ResponseEntity<Object> create(Task task) {
-        try {
-            if (task.getDescription() == null) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-            return new ResponseEntity<Object>(taskService.create(task), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Operation(summary = "Atualiza uma tarefa que já existente na lista de tarefas")
-    @PutMapping(path = "/")
-    private ResponseEntity<Object> update(Task task) {
-        try {
-            if (task.getDescription() == null || task.getId() == null) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-            return new ResponseEntity<Object>(taskService.update(task), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Operation(summary = "Delete uma tarefa já existente na lista de tarefas ")
-    @DeleteMapping(path = "/")
-    private ResponseEntity<Object> delete(Long id) {
-        try {
-            taskService.delete(id);
-            return new ResponseEntity<Object>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Operation(summary = "finaliza uma tarefa ou retira o status de finalizada de uma tarefa")
-    @PutMapping(path = "/done")
-    private ResponseEntity<Object> done(Long id) {
-        try {
-            if (id == null) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-            return new ResponseEntity<Object>(taskService.complete(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @PutMapping("/{taskId}/priority/{priority}")
+    public ResponseEntity<Task> updateTaskPriority(@PathVariable Long taskId, @PathVariable Priority priority) {
+        Task updatedTask = taskService.updateTaskPriority(taskId, priority);
+        return ResponseEntity.ok(updatedTask);
     }
 }
