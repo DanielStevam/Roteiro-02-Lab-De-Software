@@ -1,0 +1,9 @@
+@startuml
+Package "Todolist App" {
+  [Web Application]
+  [API]
+  [Database]
+}
+WebApplication --> API : HTTP
+API --> Database : JDBC
+@enduml

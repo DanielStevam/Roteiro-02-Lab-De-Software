@@ -1,0 +1,10 @@
+@startuml
+package "Todolist App" {
+  [Web Application] {
+    [Controllers]
+    [Services]
+    [Repositories]
+  }
+  [Database]
+}
+@enduml

@@ -1,12 +1,12 @@
 package com.labdesoft.roteiro01.entity;
 
 import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.FutureOrPresent;
-import javax.persistence.Transient;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.persistence.Transient;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -30,7 +30,7 @@ public class Task {
 
     private Priority priority;
 
-    @Transient // Indica que este campo não será persistido no banco de dados
+    @Transient
     private TaskStatus status;
 
     // Construtores

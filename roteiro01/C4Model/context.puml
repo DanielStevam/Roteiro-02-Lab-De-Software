@@ -1,0 +1,5 @@
+@startuml
+System TodolistApp {
+  WebApplication
+}
+@enduml
