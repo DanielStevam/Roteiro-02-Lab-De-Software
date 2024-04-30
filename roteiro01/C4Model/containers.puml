@@ -1,9 +1,14 @@
 @startuml
-Package "Todolist App" {
-  [Web Application]
-  [API]
-  [Database]
-}
-WebApplication --> API : HTTP
-API --> Database : JDBC
+!define C4Container
+
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "Usuário", "Utiliza o aplicativo para gerenciar tarefas.")
+Container(springApp, "Spring Boot App", "Java", "Permite ao usuário criar, deletar e atualizar tarefas.")
+ContainerDb(db, "Database", "H2", "Armazena informações das tarefas.")
+
+user -> springApp : Envia as requisições
+springApp -> db : Lê e reescreve os dados
+
 @enduml

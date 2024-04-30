@@ -1,5 +1,10 @@
 @startuml
-System TodolistApp {
-  WebApplication
-}
+!define C4Context
+!include https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Context.puml
+
+Person(user, "Usuário", "Pessoa que gerencia as tarefas.")
+System(todoList, "Todo List App", "Permite ao usuário gerenciar suas tarefas.")
+
+user -> todoList : Usa
+
 @enduml
