@@ -1,0 +1,8 @@
+com\labdesoft\roteiro01\entity\TaskStatus.class
+com\labdesoft\roteiro01\entity\TaskType.class
+com\labdesoft\roteiro01\entity\Priority.class
+com\labdesoft\roteiro01\repository\TaskRepository.class
+com\labdesoft\roteiro01\Roteiro01Application.class
+com\labdesoft\roteiro01\service\TaskService.class
+com\labdesoft\roteiro01\controller\TaskController.class
+com\labdesoft\roteiro01\entity\Task.class
