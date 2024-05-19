@@ -64,7 +64,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>RELEASE</version>
+            <version>7.5</version> <!-- Atualize com a versão concreta -->
             <scope>test</scope>
         </dependency>
     </dependencies>
