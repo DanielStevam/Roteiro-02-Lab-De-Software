@@ -31,6 +31,7 @@ class TaskTest {
         assertEquals(TaskStatus.PENDING, task.getStatus());
     }
 
+    // teste
     @Test
     void testConstructor() {
         // Defino os valores dos atributos
