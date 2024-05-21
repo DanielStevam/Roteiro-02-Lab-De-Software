@@ -9,10 +9,10 @@ class TaskTest {
 
     @Test
     void testGetterSetter() {
-        // Cria uma instância de Task
+        // Crio uma instância de Task
         Task task = new Task();
 
-        // Define os valores dos atributos
+        // Defino os valores dos atributos
         task.setId(1L);
         task.setDescription("Exemplo de tarefa");
         task.setType(TaskType.TYPE_A);
@@ -21,7 +21,7 @@ class TaskTest {
         task.setPriority(Priority.HIGH);
         task.setStatus(TaskStatus.PENDING);
 
-        // Verifica se os valores atribuídos estão corretos
+        // Verifico se os valores atribuídos estão corretos
         assertEquals(1L, task.getId());
         assertEquals("Exemplo de tarefa", task.getDescription());
         assertEquals(TaskType.TYPE_A, task.getType());
@@ -33,17 +33,17 @@ class TaskTest {
 
     @Test
     void testConstructor() {
-        // Define os valores dos atributos
+        // Defino os valores dos atributos
         String description = "Exemplo de tarefa";
         TaskType type = TaskType.TYPE_A;
         LocalDate dueDate = LocalDate.now();
         Integer dueDays = 3;
         Priority priority = Priority.HIGH;
 
-        // Cria uma instância de Task usando o construtor
+        // Crio uma instância de Task usando o construtor
         Task task = new Task(description, type, dueDate, dueDays, priority);
 
-        // Verifica se os valores atribuídos estão corretos
+        // Verifico se os valores atribuídos estão corretos
         assertEquals(description, task.getDescription());
         assertEquals(type, task.getType());
         assertEquals(dueDate, task.getDueDate());
