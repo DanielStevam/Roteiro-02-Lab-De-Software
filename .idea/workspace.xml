@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff6c4620-ce20-44e0-8201-85bc66ed7b12" name="Changes" comment="qql coisa">
+    <list default="true" id="ff6c4620-ce20-44e0-8201-85bc66ed7b12" name="Changes" comment="update">
+      <change afterPath="$PROJECT_DIR$/roteiro01/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roteiro01/src/test/java/com/labdesoft/roteiro01/entity/TaskTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/roteiro01/src/test/java/com/labdesoft/roteiro01/entity/TaskTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roteiro01/src/test/java/com/labdesoft/roteiro01/Roteiro01ApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,11 +20,14 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2gghBj1xy1ryoZjKU2f8bYsR7qJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -31,6 +35,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Roteiro01Application.executor": "Run",
+    "JUnit.TaskTest.executor": "Run",
     "Maven.todolist [clean,install].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -47,7 +52,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.TaskTest">
     <configuration name="Roteiro01Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.labdesoft.roteiro01.Roteiro01Application" />
       <module name="todolist" />
@@ -61,21 +66,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
+    <configuration name="TaskTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="todolist" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="todolist" />
-      <option name="filePath" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.labdesoft.roteiro01.entity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.labdesoft.roteiro01.entity" />
+      <option name="MAIN_CLASS_NAME" value="com.labdesoft.roteiro01.entity.TaskTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TaskTest" />
         <item itemvalue="Application.Roteiro01Application" />
       </list>
     </recent_temporary>
@@ -131,7 +139,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716132526363</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="update">
+      <option name="closed" value="true" />
+      <created>1716304535808</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1716304535808</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -150,6 +166,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="qql coisa" />
-    <option name="LAST_COMMIT_MESSAGE" value="qql coisa" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>
