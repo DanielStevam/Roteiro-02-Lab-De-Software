@@ -1,8 +1,14 @@
-package com.labdesoft.roteiro01.entity;
+package com.labdesoft.roteiro01.unit.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
+import com.labdesoft.roteiro01.entity.Priority;
+import com.labdesoft.roteiro01.entity.Task;
+import com.labdesoft.roteiro01.entity.TaskStatus;
+import com.labdesoft.roteiro01.entity.TaskType;
+
 import java.time.LocalDate;
 
 class TaskTest {
