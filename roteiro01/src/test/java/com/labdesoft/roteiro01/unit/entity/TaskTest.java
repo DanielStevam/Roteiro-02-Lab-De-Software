@@ -1,18 +1,24 @@
-package com.labdesoft.roteiro01.entity;
+package com.labdesoft.roteiro01.unit.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
+import com.labdesoft.roteiro01.entity.Priority;
+import com.labdesoft.roteiro01.entity.Task;
+import com.labdesoft.roteiro01.entity.TaskStatus;
+import com.labdesoft.roteiro01.entity.TaskType;
+
 import java.time.LocalDate;
 
 class TaskTest {
 
     @Test
     void testGetterSetter() {
-        // Cria uma instância de Task
+        // Crio uma instância de Task
         Task task = new Task();
 
-        // Define os valores dos atributos
+        // Defino os valores dos atributos
         task.setId(1L);
         task.setDescription("Exemplo de tarefa");
         task.setType(TaskType.TYPE_A);
@@ -21,7 +27,7 @@ class TaskTest {
         task.setPriority(Priority.HIGH);
         task.setStatus(TaskStatus.PENDING);
 
-        // Verifica se os valores atribuídos estão corretos
+        // Verifico se os valores atribuídos estão corretos
         assertEquals(1L, task.getId());
         assertEquals("Exemplo de tarefa", task.getDescription());
         assertEquals(TaskType.TYPE_A, task.getType());
@@ -31,19 +37,20 @@ class TaskTest {
         assertEquals(TaskStatus.PENDING, task.getStatus());
     }
 
+    // teste
     @Test
     void testConstructor() {
-        // Define os valores dos atributos
+        // Defino os valores dos atributos
         String description = "Exemplo de tarefa";
         TaskType type = TaskType.TYPE_A;
         LocalDate dueDate = LocalDate.now();
         Integer dueDays = 3;
         Priority priority = Priority.HIGH;
 
-        // Cria uma instância de Task usando o construtor
+        // Crio uma instância de Task usando o construtor
         Task task = new Task(description, type, dueDate, dueDays, priority);
 
-        // Verifica se os valores atribuídos estão corretos
+        // Verifico se os valores atribuídos estão corretos
         assertEquals(description, task.getDescription());
         assertEquals(type, task.getType());
         assertEquals(dueDate, task.getDueDate());
