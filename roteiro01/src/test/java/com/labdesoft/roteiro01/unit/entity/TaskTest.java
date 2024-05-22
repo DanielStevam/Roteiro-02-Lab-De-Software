@@ -21,20 +21,20 @@ class TaskTest {
         // Defino os valores dos atributos
         task.setId(1L);
         task.setDescription("Exemplo de tarefa");
-        task.setType(TaskType.TYPE_A);
+        task.setType(TaskType.FEATURE);
         task.setDueDate(LocalDate.now());
         task.setDueDays(3);
         task.setPriority(Priority.HIGH);
-        task.setStatus(TaskStatus.PENDING);
+        task.setStatus(TaskStatus.TODO);
 
         // Verifico se os valores atribuídos estão corretos
         assertEquals(1L, task.getId());
         assertEquals("Exemplo de tarefa", task.getDescription());
-        assertEquals(TaskType.TYPE_A, task.getType());
+        assertEquals(TaskType.FEATURE, task.getType());
         assertEquals(LocalDate.now(), task.getDueDate());
         assertEquals(3, task.getDueDays());
         assertEquals(Priority.HIGH, task.getPriority());
-        assertEquals(TaskStatus.PENDING, task.getStatus());
+        assertEquals(TaskStatus.TODO, task.getStatus());
     }
 
     // teste
@@ -42,7 +42,7 @@ class TaskTest {
     void testConstructor() {
         // Defino os valores dos atributos
         String description = "Exemplo de tarefa";
-        TaskType type = TaskType.TYPE_A;
+        TaskType type = TaskType.BUG;
         LocalDate dueDate = LocalDate.now();
         Integer dueDays = 3;
         Priority priority = Priority.HIGH;
