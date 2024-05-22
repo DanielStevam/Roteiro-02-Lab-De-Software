@@ -11,7 +11,7 @@ import com.labdesoft.roteiro01.entity.TaskType;
 
 import java.time.LocalDate;
 
-class TaskTest {
+class TaskEntityTest {
 
     @Test
     void testGetterSetter() {
