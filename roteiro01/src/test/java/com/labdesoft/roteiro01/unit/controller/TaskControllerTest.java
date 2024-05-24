@@ -1,6 +1,7 @@
 package com.labdesoft.roteiro01.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.labdesoft.roteiro01.entity.Task;
 import com.labdesoft.roteiro01.entity.TaskType;
 import com.labdesoft.roteiro01.controller.TaskController;
@@ -30,6 +31,13 @@ public class TaskControllerTest {
     @MockBean
     private TaskService taskService;
 
+    private final ObjectMapper objectMapper;
+
+    public TaskControllerTest() {
+        this.objectMapper = new ObjectMapper();
+        this.objectMapper.registerModule(new JavaTimeModule());
+    }
+
     @Test
     public void getAllTasks() throws Exception {
         Task task = new Task("Test Task", TaskType.FEATURE, LocalDate.now(), 3, Priority.HIGH);
@@ -49,7 +57,7 @@ public class TaskControllerTest {
 
         mockMvc.perform(post("/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(task)))
+                .content(objectMapper.writeValueAsString(task)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description").value("New Task"));
     }
