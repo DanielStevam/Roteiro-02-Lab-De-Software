@@ -1,6 +1,7 @@
 package com.labdesoft.roteiro01.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.labdesoft.roteiro01.entity.Task;
 import com.labdesoft.roteiro01.entity.TaskType;
 import com.labdesoft.roteiro01.entity.Priority;
@@ -33,9 +34,13 @@ public class TaskIntegrationTest {
     @Autowired
     private TaskRepository taskRepository;
 
+    private ObjectMapper objectMapper;
+
     @BeforeEach
     public void setUp() {
         taskRepository.deleteAll();
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     @Test
@@ -45,7 +50,7 @@ public class TaskIntegrationTest {
 
         mockMvc.perform(post("/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(task)))
+                .content(objectMapper.writeValueAsString(task)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description").value("Integration Test Task"));
 
