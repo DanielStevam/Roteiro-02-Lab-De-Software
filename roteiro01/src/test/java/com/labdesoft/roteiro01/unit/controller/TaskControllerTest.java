@@ -1,7 +1,6 @@
 package com.labdesoft.roteiro01.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.labdesoft.roteiro01.entity.Task;
 import com.labdesoft.roteiro01.entity.TaskType;
 import com.labdesoft.roteiro01.controller.TaskController;
@@ -31,12 +30,8 @@ public class TaskControllerTest {
     @MockBean
     private TaskService taskService;
 
-    private final ObjectMapper objectMapper;
-
-    public TaskControllerTest() {
-        this.objectMapper = new ObjectMapper();
-        this.objectMapper.registerModule(new JavaTimeModule());
-    }
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void getAllTasks() throws Exception {
@@ -60,5 +55,28 @@ public class TaskControllerTest {
                 .content(objectMapper.writeValueAsString(task)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description").value("New Task"));
+    }
+
+    @Test
+    public void testUpdateTask() throws Exception {
+        Task task = new Task("Updated Task", TaskType.BUG, LocalDate.now(), 5, Priority.MEDIUM);
+        task.setId(1L);
+        task.setStatus(TaskStatus.IN_PROGRESS);
+        Mockito.when(taskService.updateTask(Mockito.any(Task.class))).thenReturn(task);
+
+        mockMvc.perform(put("/tasks/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(task)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.description").value("Updated Task"))
+                .andExpect(jsonPath("$.status").value("IN_PROGRESS"));
+    }
+
+    @Test
+    public void testDeleteTask() throws Exception {
+        Mockito.doNothing().when(taskService).deleteTask(1L);
+
+        mockMvc.perform(delete("/tasks/1"))
+                .andExpect(status().isNoContent());
     }
 }
