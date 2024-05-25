@@ -22,7 +22,7 @@ public class TaskRepositoryTest {
 
     @Test
     public void testCreateAndFindTask() {
-        Task task = new Task("Test Task", TaskType.FEATURE, LocalDate.of(2024, 5, 24), 5, Priority.HIGH);
+        Task task = new Task("Test Task", TaskType.FEATURE, LocalDate.now().plusDays(5), 5, Priority.HIGH);
         taskRepository.save(task);
 
         Optional<Task> foundTask = taskRepository.findById(task.getId());

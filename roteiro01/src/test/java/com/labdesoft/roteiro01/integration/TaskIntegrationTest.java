@@ -28,13 +28,12 @@ public class TaskIntegrationTest {
 
     @Test
     public void testCreateAndGetTask() throws Exception {
-        // Crie uma instância de Task, TaskType e Priority
-        Task task = new Task("New Task", TaskType.FEATURE, LocalDate.of(2024, 5, 24), 5, Priority.HIGH);
+        Task task = new Task("New Task", TaskType.FEATURE, LocalDate.now().plusDays(5), 5, Priority.HIGH);
         String taskJson = objectMapper.writeValueAsString(task);
 
         mockMvc.perform(post("/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(taskJson))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 }
