@@ -1,10 +1,10 @@
 package com.labdesoft.roteiro01.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.labdesoft.roteiro01.entity.Task;
-import com.labdesoft.roteiro01.entity.TaskType;
 import com.labdesoft.roteiro01.entity.Priority;
+import com.labdesoft.roteiro01.entity.Task;
 import com.labdesoft.roteiro01.entity.TaskStatus;
+import com.labdesoft.roteiro01.entity.TaskType;
 import com.labdesoft.roteiro01.repository.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,8 +18,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
