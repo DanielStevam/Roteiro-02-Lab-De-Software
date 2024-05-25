@@ -1,7 +1,0 @@
-{
-    "description": "Mock Task",
-    "taskType": "FEATURE",
-    "dueDate": "2023-05-23",
-    "priority": "HIGH",
-    "status": "TODO"
-}
