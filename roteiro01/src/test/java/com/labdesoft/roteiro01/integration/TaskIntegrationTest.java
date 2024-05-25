@@ -33,7 +33,7 @@ public class TaskIntegrationTest {
 
         mockMvc.perform(post("/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(taskJson));
+                .content(taskJson))
+                .andExpect(status().isOk());
     }
-
 }
