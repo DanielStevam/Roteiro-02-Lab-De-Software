@@ -8,7 +8,6 @@ COPY . .
 
 RUN apt-get install maven -y
 RUN mvn clean install
-RUN mvn test
 
 FROM openjdk:17-jdk-slim
 
