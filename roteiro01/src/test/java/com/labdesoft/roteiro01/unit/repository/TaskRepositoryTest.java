@@ -1,16 +1,18 @@
 package com.labdesoft.roteiro01.unit.repository;
 
+import com.labdesoft.roteiro01.entity.Priority;
 import com.labdesoft.roteiro01.entity.Task;
-import com.labdesoft.roteiro01.mock.TaskMock;
+import com.labdesoft.roteiro01.entity.TaskType;
 import com.labdesoft.roteiro01.repository.TaskRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 public class TaskRepositoryTest {
@@ -18,23 +20,13 @@ public class TaskRepositoryTest {
     @Autowired
     private TaskRepository taskRepository;
 
-    @BeforeEach
-    public void setUp() {
-        // Limpar o repositório antes de cada teste
-        taskRepository.deleteAll();
-    }
-
     @Test
     public void testCreateAndFindTask() {
-        // Criar uma tarefa mock
-        Task task = TaskMock.createMockTask();
-        // Salvar a tarefa no repositório
+        Task task = new Task("Test Task", TaskType.FEATURE, LocalDate.of(2024, 5, 24), 5, Priority.HIGH);
         taskRepository.save(task);
 
-        // Recuperar todas as tarefas do repositório
-        List<Task> tasks = taskRepository.findAll();
-        // Verificar se a tarefa foi salva corretamente
-        assertEquals(1, tasks.size());
-        assertEquals(task.getDescription(), tasks.get(0).getDescription());
+        Optional<Task> foundTask = taskRepository.findById(task.getId());
+        assertTrue(foundTask.isPresent());
+        assertEquals("Test Task", foundTask.get().getDescription());
     }
 }
