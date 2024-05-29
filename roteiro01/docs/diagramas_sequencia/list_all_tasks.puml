@@ -1,0 +1,15 @@
+@startuml
+actor User
+User -> TaskController : GET /api/tasks
+activate TaskController
+TaskController -> TaskService : getAllTasks()
+activate TaskService
+TaskService -> TaskRepository : findAll()
+activate TaskRepository
+TaskRepository --> TaskService : List<Task>
+deactivate TaskRepository
+TaskService --> TaskController : List<Task>
+deactivate TaskService
+TaskController --> User : List<Task>
+deactivate TaskController
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+actor User
+User -> TaskController : DELETE /api/tasks/{id}
+activate TaskController
+TaskController -> TaskService : deleteTask(Long id)
+activate TaskService
+TaskService -> TaskRepository : deleteById(id)
+activate TaskRepository
+TaskRepository --> TaskService : void
+deactivate TaskRepository
+TaskService --> TaskController : void
+deactivate TaskService
+TaskController --> User : void
+deactivate TaskController
+@enduml
