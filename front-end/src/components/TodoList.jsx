@@ -6,7 +6,6 @@ export const TodoList = () => {
   return (
     <div className='Todo'>
       <p className='completed'>
-        Tarefa 1
       </p>
       <div>
         <FontAwesomeIcon
