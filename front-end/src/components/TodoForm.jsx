@@ -1,13 +1,26 @@
-import React from "react";
-export const TodoForm = () => {
-    return (
-        <form className="TodoForm">
-            <input
-                type="text"
-                className="todo-input"
-                placeholder="What's the news?"
-            />
-            <button type="submit" className="todo-btn">+</button>
-        </form>
-    )
-}
+import React, { useState } from 'react';
+
+export const TodoForm = ({ addTodo }) => {
+  const [value, setValue] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (value) {
+      addTodo(value);
+      setValue('');
+    }
+  };
+
+  return (
+    <form className="TodoForm" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        className="todo-input"
+        placeholder='Descrição da Tarefa'
+      />
+      <button type="submit" className='todo-btn'>Adicionar Tarefa</button>
+    </form>
+  );
+};
