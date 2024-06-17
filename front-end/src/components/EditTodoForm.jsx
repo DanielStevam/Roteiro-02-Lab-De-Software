@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 
-export const TodoForm = ({ addTodo }) => {
-  const [value, setValue] = useState("");
+export const EditTodoForm = ({ task, editTodo, saveTodo }) => {
+  const [value, setValue] = useState(task.description);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (value) {
-      addTodo(value);
-      setValue("");
+      saveTodo(task.id, value);
     }
   };
 
@@ -21,7 +20,7 @@ export const TodoForm = ({ addTodo }) => {
         placeholder="Descrição da Tarefa"
       />
       <button type="submit" className="todo-btn">
-        Adicionar Tarefa
+        Salvar
       </button>
     </form>
   );
