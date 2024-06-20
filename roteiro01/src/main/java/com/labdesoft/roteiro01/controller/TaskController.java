@@ -9,7 +9,8 @@ import com.labdesoft.roteiro01.entity.*;
 import com.labdesoft.roteiro01.service.TaskService;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/api/tasks")
+@CrossOrigin
 public class TaskController {
 
     @Autowired
