@@ -10,6 +10,7 @@ import com.labdesoft.roteiro01.service.TaskService;
 
 @RestController
 @RequestMapping("/tasks")
+@CrossOrigin
 public class TaskController {
 
     @Autowired
