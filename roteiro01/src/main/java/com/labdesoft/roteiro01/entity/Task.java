@@ -30,7 +30,6 @@ public class Task {
 
     private Priority priority;
 
-    @Transient
     private TaskStatus status;
 
     // Construtores
