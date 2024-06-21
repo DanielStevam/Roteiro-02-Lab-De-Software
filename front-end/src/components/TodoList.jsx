@@ -2,34 +2,74 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
+  Card,
+  CardContent,
+  Typography,
   IconButton,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
-  Paper,
+  Grid,
 } from "@mui/material";
 import { EditTodoForm } from "./EditTodoForm";
 import { DeleteTodoForm } from "./DeleteTodoForm";
 import todoService from "../services/todoService";
 
-export const TodoList = ({ todos, deleteTodo, editTodo, saveTodo }) => {
+const getStatusStyles = (status) => {
+  switch (status) {
+    case "FEITO":
+      return {
+        borderColor: "success.main",
+        backgroundColor: "rgba(76, 175, 80, 0.1)",
+      };
+    case "EM_PROGRESSO":
+      return {
+        borderColor: "warning.main",
+        backgroundColor: "rgba(255, 193, 7, 0.1)",
+      };
+    case "PENDENTE":
+      return {
+        borderColor: "info.main",
+        backgroundColor: "rgba(33, 150, 243, 0.1)",
+      };
+    default:
+      return {
+        borderColor: "default",
+        backgroundColor: "transparent",
+      };
+  }
+};
+
+export const TodoList = ({ task, deleteTodo, editTodo, saveTodo }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState(null);
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState(task.status || "TODO");
 
-  const handleStatusChange = async (event, task) => {
+  const getType = () => {
+    if (task.dueDate && task.dueDays && task.dueDays !== 0) return "Prazo";
+    if (task.dueDate) return "Data";
+    return "Livre";
+  };
+
+  const calculateDueDays = (dueDate) => {
+    const currentDate = new Date();
+    const dueDateObj = new Date(dueDate);
+    const diffTime = dueDateObj - currentDate;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+
+  const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
     setStatus(newStatus);
 
     const updatedTask = {
-      ...task,
+      description: task.description,
+      type: task.type,
+      priority: task.priority,
+      dueDate: task.dueDate,
+      dueDays: task.dueDays,
       status: newStatus,
     };
 
@@ -50,71 +90,74 @@ export const TodoList = ({ todos, deleteTodo, editTodo, saveTodo }) => {
     setIsEditOpen(false);
   };
 
-  const handleDeleteOpen = (task) => {
-    setCurrentTask(task);
-    setIsDeleteOpen(true);
-  };
-
-  const handleDeleteClose = () => {
-    setCurrentTask(null);
-    setIsDeleteOpen(false);
-  };
+  const handleDeleteOpen = () => setIsDeleteOpen(true);
+  const handleDeleteClose = () => setIsDeleteOpen(false);
 
   const handleDeleteConfirm = async () => {
-    if (currentTask) {
-      await deleteTodo(currentTask.id);
-      handleDeleteClose();
-    }
+    await deleteTodo(task.id);
+    handleDeleteClose();
   };
 
   return (
-    <Paper>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Descrição</TableCell>
-            <TableCell>Tipo</TableCell>
-            <TableCell>Prioridade</TableCell>
-            <TableCell>Data de Vencimento</TableCell>
-            <TableCell>Prazo</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Ações</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {todos.map((task) => (
-            <TableRow key={task.id}>
-              <TableCell>{task.description}</TableCell>
-              <TableCell>{task.type}</TableCell>
-              <TableCell>{task.priority}</TableCell>
-              <TableCell>{task.dueDate}</TableCell>
-              <TableCell>{task.dueDays}</TableCell>
-              <TableCell>
-                <FormControl fullWidth>
-                  <InputLabel>Status</InputLabel>
-                  <Select
-                    value={task.status || "A_FAZER"}
-                    onChange={(event) => handleStatusChange(event, task)}
-                  >
-                    <MenuItem value="A_FAZER">A fazer</MenuItem>
-                    <MenuItem value="EM_PROGRESSO">Em progresso</MenuItem>
-                    <MenuItem value="FEITO">Feito</MenuItem>
-                    <MenuItem value="PENDENTE">Pendente</MenuItem>
-                  </Select>
-                </FormControl>
-              </TableCell>
-              <TableCell>
-                <IconButton onClick={() => handleEditOpen(task)}>
-                  <FontAwesomeIcon icon={faPenToSquare} />
-                </IconButton>
-                <IconButton onClick={() => handleDeleteOpen(task)}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card
+          className="Todo"
+          sx={{
+            marginBottom: 2,
+            height: 350,
+            borderColor: getStatusStyles(status).borderColor,
+            borderWidth: 2,
+            borderStyle: "solid",
+            backgroundColor: getStatusStyles(status).backgroundColor,
+          }}
+        >
+          <CardContent>
+            <Typography variant="h5" component="div">
+              {task.description}
+            </Typography>
+            <Typography color="textSecondary">Tipo: {getType()}</Typography>
+            <Typography color="textSecondary">
+              Tipo de Task: {task.type}
+            </Typography>
+            <Typography color="textSecondary">
+              Prioridade: {task.priority}
+            </Typography>
+            {task.dueDate && (
+              <Typography color="textSecondary">
+                Data de Vencimento: {task.dueDate}
+              </Typography>
+            )}
+            {task.dueDate && (
+              <Typography color="textSecondary">
+                Deadline: {calculateDueDays(task.dueDate)} dias
+              </Typography>
+            )}
+            {task.dueDays !== null && (
+              <Typography color="textSecondary">
+                Prazo: {task.dueDays}
+              </Typography>
+            )}
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Status</InputLabel>
+              <Select value={status} onChange={handleStatusChange}>
+                <MenuItem value="TODO">To do</MenuItem>
+                <MenuItem value="IN_PROGRESS">In progress</MenuItem>
+                <MenuItem value="DONE">Done</MenuItem>
+                <MenuItem value="PENDING">Pending</MenuItem>
+              </Select>
+            </FormControl>
+            <div>
+              <IconButton onClick={() => handleEditOpen(task)}>
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </IconButton>
+              <IconButton onClick={handleDeleteOpen}>
+                <FontAwesomeIcon icon={faTrash} />
+              </IconButton>
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
       {currentTask && (
         <EditTodoForm
           task={currentTask}
@@ -127,8 +170,8 @@ export const TodoList = ({ todos, deleteTodo, editTodo, saveTodo }) => {
         open={isDeleteOpen}
         onClose={handleDeleteClose}
         onConfirm={handleDeleteConfirm}
-        taskTitle={currentTask ? currentTask.description : ""}
+        taskTitle={task.description}
       />
-    </Paper>
+    </>
   );
 };
